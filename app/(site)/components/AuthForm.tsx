@@ -1,5 +1,6 @@
 'use client'
 
+import axios from 'axios'
 import { useCallback, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
@@ -7,7 +8,9 @@ import { BsGithub, BsGoogle } from 'react-icons/bs'
 import Input from '@/app/components/inputs/Input'
 import Button from '@/app/components/Button'
 import AuthSocialButton from './AuthSocialButton'
-import axios from 'axios'
+import { toast } from 'react-hot-toast'
+import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 
 type Variant = 'LOGIN' | 'REGISTER'
 
@@ -39,25 +42,59 @@ const AuthForm = () => {
     setIsLoading(true)
 
     if (variant === 'REGISTER') {
-      // TODO: Axios register
-      axios.post('/api/register', data)
+      axios
+        .post('/api/register', data)
+        .then(res => {
+          toast.success('Registered successfully!')
+        })
+        .catch(err => {
+          // console.log('err', err)
+          toast.error(err.response.data)
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
 
     if (variant === 'LOGIN') {
       // TODO: NextAuth SignIn
+      signIn('credentials', {
+        ...data,
+        redirect: false
+      })
+        .then(callback => {
+          // console.log('callback', callback)
+          if (callback?.error) {
+            toast.error(callback.error)
+          } else if (callback?.ok) {
+            toast.success('Logged in')
+          }
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
   }
 
   const socialAction = (action: string) => {
     setIsLoading(true)
 
-    // TODO NextAuth Social SignIn
+    signIn(action, { redirect: false })
+      .then(callback => {
+        if (callback?.error) {
+          toast.error(callback.error)
+        } else if (callback?.ok) {
+          toast.success('Logged in')
+        }
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
     <div
       className='
-        mt-8 
         sm:mx-auto
         sm:w-full
         sm:max-w-md
@@ -73,6 +110,28 @@ const AuthForm = () => {
           sm:px-10
         '
       >
+        <div className='mb-10 sm:mx-auto sm:w-full sm:max-w-md'>
+          <Image
+            height='48'
+            width='48'
+            className='mx-auto w-auto'
+            src='/images/logo.png'
+            alt='Logo'
+          />
+          <h2
+            className='
+            mt-6 
+            text-center 
+            text-3xl 
+            font-bold 
+            tracking-tight 
+            text-gray-900
+          '
+          >
+            Sign in to your account
+          </h2>
+        </div>
+
         <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           {variant === 'REGISTER' && (
             <Input
