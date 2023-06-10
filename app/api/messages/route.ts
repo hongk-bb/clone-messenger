@@ -58,7 +58,9 @@ export async function POST(request: Request) {
       }
     })
 
+    console.log('Triggering messages:new event', newMessage)
     await pusherServer.trigger(conversationId, 'messages:new', newMessage)
+    console.log('Event messages:new triggered')
 
     const lastMessage =
       updatedConversation.messages[updatedConversation.messages.length - 1]

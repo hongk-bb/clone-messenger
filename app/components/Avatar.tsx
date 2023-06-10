@@ -3,8 +3,6 @@
 import { User } from '@prisma/client'
 
 import useActiveList from '../hooks/useActiveList'
-import Image from 'next/image'
-import { CldImage } from 'next-cloudinary'
 import CustomImage from './CustomImage'
 
 interface AvatarProps {
@@ -34,19 +32,6 @@ const Avatar: React.FC<AvatarProps> = ({ user }) => {
           src={user?.image || '/images/placeholder.jpg'}
           alt='Avatar'
         />
-        {/* {user?.image?.includes('cloudinary') ? (
-          <CldImage
-            fill
-            src={user?.image || '/images/placeholder.jpg'}
-            alt='Avatar'
-          />
-        ) : (
-          <Image
-            fill
-            src={user?.image || '/images/placeholder.jpg'}
-            alt='Avatar'
-          />
-        )} */}
       </div>
       {isActive ? (
         <span

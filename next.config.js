@@ -7,11 +7,11 @@ const nextConfig = {
   },
   images: {
     domains: [
-      'localhost',
       'res.cloudinary.com',
       'avatars.githubusercontent.com',
-      'lh3.googleusercontent.com'
-    ],
+      'lh3.googleusercontent.com',
+      'ws-eu.pusher.com'
+    ]
   }
 }
 
