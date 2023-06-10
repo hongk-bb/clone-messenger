@@ -12,8 +12,6 @@ export async function POST(request: Request) {
       return new NextResponse('Missing info', { status: 400 })
     }
 
-    // TODO: Verify email and nickname and password in detail
-
     const hashedPassword = await bcrypt.hash(password, 12)
 
     const user = await prisma.user.create({
