@@ -2,9 +2,7 @@
 
 interface FormProps {}
 
-const Form: React.FC<FormProps> = ({
-
-}) => {
+const Form: React.FC<FormProps> = ({}) => {
   return (
     <div>
       <div>Input</div>
