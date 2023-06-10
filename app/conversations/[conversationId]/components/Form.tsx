@@ -7,8 +7,6 @@ import axios from 'axios'
 import { CldUploadButton } from 'next-cloudinary'
 import useConversation from '@/app/hooks/useConversation'
 
-const uploadPreset = 'g0atrcqy'
-
 const Form = () => {
   const { conversationId } = useConversation()
 
@@ -55,7 +53,7 @@ const Form = () => {
       <CldUploadButton
         options={{ maxFiles: 1 }}
         onUpload={handleUpload}
-        uploadPreset={uploadPreset}
+        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_UPLOADPRESET}
       >
         <HiPhoto size={30} className='text-sky-500' />
       </CldUploadButton>

@@ -9,6 +9,7 @@ import { FullMessageType } from '@/app/types'
 
 import Avatar from '@/app/components/Avatar'
 import ImageModal from './ImageModal'
+import { CldImage } from 'next-cloudinary'
 
 interface MessageBoxProps {
   data: FullMessageType
@@ -53,7 +54,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
             onClose={() => setImageModalOpen(false)}
           />
           {data.image ? (
-            <Image
+            <CldImage
               alt='Image'
               height='288'
               width='288'

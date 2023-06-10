@@ -1,7 +1,9 @@
 'use client'
 
 import { User } from '@prisma/client'
+import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
+import CustomImage from './CustomImage'
 
 interface AvatarGroupProps {
   users?: User[]
@@ -31,7 +33,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({ users = [] }) => {
             ${positionMap[index as keyof typeof positionMap]}
           `}
         >
-          <Image
+          <CustomImage
             fill
             src={user?.image || '/images/placeholder.jpg'}
             alt='Avatar'

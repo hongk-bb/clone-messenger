@@ -50,6 +50,7 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
         isGroup: true
       })
       .then(() => {
+        toast.success('Created successfully!')
         router.refresh()
         onClose()
       })
