@@ -1,5 +1,3 @@
-项目预览: [项目预览](https://chat-group-go.vercel.app/)
-
 ## Introduction
 
 该项目使用了以下技术：
